@@ -17,5 +17,19 @@ public class BaseEntity<PK extends Serializable> implements Serializable {
     @GeneratedValue
     private PK id;
 
+    public BaseEntity() {
 
+    }
+
+    public BaseEntity(PK id) {
+        this.id = id;
+    }
+
+    public PK getId() {
+        return id;
+    }
+
+    public void setId(PK id) {
+        this.id = id;
+    }
 }
