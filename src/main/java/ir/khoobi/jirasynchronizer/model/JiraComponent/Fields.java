@@ -11,6 +11,8 @@ public class Fields extends BaseEntity<Long> {
 
     private IssueType issuetype;
 
+    private String key;
+
     private String summary;
 
     private String description;
@@ -21,6 +23,15 @@ public class Fields extends BaseEntity<Long> {
 
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<Component> components;
+
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public Fields(Long id) {
         super(id);
