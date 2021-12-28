@@ -1,10 +1,11 @@
 package ir.khoobi.jirasynchronizer.service;
 
-import ir.khoobi.jirasynchronizer.base.service.BaseService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import ir.khoobi.jirasynchronizer.model.JiraComponent.Issue;
+import org.springframework.http.ResponseEntity;
 
-public interface IssueService extends BaseService<Issue, Long> {
+public interface IssueService {
 
 
-    Issue generalIssueCreator(Issue issue);
+    ResponseEntity<Issue> generalIssueCreator(Issue issue) throws JsonProcessingException;
 }

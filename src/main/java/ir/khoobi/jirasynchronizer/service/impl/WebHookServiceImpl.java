@@ -6,13 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.khoobi.jirasynchronizer.base.service.BaseServiceImpl;
 import ir.khoobi.jirasynchronizer.model.JiraComponent.Issue;
 import ir.khoobi.jirasynchronizer.model.JiraComponent.WebHookObject;
+import ir.khoobi.jirasynchronizer.model.issuefields.IssueType;
+import ir.khoobi.jirasynchronizer.model.issuefields.Project;
 import ir.khoobi.jirasynchronizer.repository.WebHookRepository;
+import ir.khoobi.jirasynchronizer.service.IssueService;
 import ir.khoobi.jirasynchronizer.service.WebHookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
+@Service
 public class WebHookServiceImpl extends BaseServiceImpl<WebHookObject, Long, WebHookRepository> implements WebHookService {
     private final static String CREATE_ISSUE = "jira:issue_created";
     private final static String UPDATE_ISSUE = "jira:issue_updated";
@@ -22,13 +30,22 @@ public class WebHookServiceImpl extends BaseServiceImpl<WebHookObject, Long, Web
         super(repository);
     }
 
+    IssueService issueService;
+
+    @Autowired
+    public WebHookServiceImpl(WebHookRepository repository, IssueService issueService) {
+        super(repository);
+        this.issueService = issueService;
+    }
+
     @Override
     public ResponseEntity<Optional<Issue>> webHookDispatcher(HttpEntity<String> request) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        WebHookObject webHookObject = mapper.readValue(request.getBody(), WebHookObject.class);
+        String body = request.getBody();
+        WebHookObject webHookObject = mapper.readValue(body, WebHookObject.class);
         String actionType = webHookObject.getWebhookEvent();
-        ResponseEntity<Optional<Issue>> issue;
+        ResponseEntity<Issue> issue;
         switch (actionType) {
             case CREATE_ISSUE:
                 issue = createIssue(webHookObject);
@@ -38,9 +55,17 @@ public class WebHookServiceImpl extends BaseServiceImpl<WebHookObject, Long, Web
     }
 
     @Override
-    public ResponseEntity<Optional<Issue>> createIssue(WebHookObject webHookObject) {
-        Issue sourceIssue = webHookObject.getIssue();
-        Issue newIssue;
+    public ResponseEntity<Issue> createIssue(WebHookObject webHookObject) throws JsonProcessingException {
+        Issue issue = webHookObject.getIssue();
+        issue.getFields().getComponents().clear();
+//        issue.getFields().getComponents().add(new Component("11521"));
+        issue.getFields().setSummary("test for jira connector final");
+        issue.getFields().setProject(new Project(10000L));
+        issue.getFields().setIssuetype(new IssueType(10003L));
+        issue.getFields().setDescription("created from synchronize");
+        issueService.generalIssueCreator(issue);
+
+        return new ResponseEntity<Issue>(HttpStatus.CREATED);
 
 
     }

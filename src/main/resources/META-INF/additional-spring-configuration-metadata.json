@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "jira.destination",
+      "type": "ir.khoobi.jirasynchronizer.properties.DestinationServer",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.DestinationServer"
+    },
+    {
+      "name": "jira.source",
+      "type": "ir.khoobi.jirasynchronizer.properties.DestinationServer",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.SourceServer"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jira.destination.url",
+      "type": "java.lang.String",
+      "description": "Description for jira.source.server.url.",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.DestinationServer"
+    },
+    {
+      "name": "jira.destination.username",
+      "type": "java.lang.String",
+      "description": "Description for jira.destination.server.username.",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.DestinationServer"
+    },
+    {
+      "name": "jira.destination.password",
+      "type": "java.lang.String",
+      "description": "Description for jira.destination.password.",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.DestinationServer"
+    },
+    {
+      "name": "jira.source.url",
+      "type": "java.lang.String",
+      "description": "Description for jira.source.url.",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.SourceServer"
+    },
+    {
+      "name": "jira.source.username",
+      "type": "java.lang.String",
+      "description": "Description for jira.source.url.",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.SourceServer"
+    },
+    {
+      "name": "jira.source.password",
+      "type": "java.lang.String",
+      "description": "Description for jira.source.url.",
+      "sourceType": "ir.khoobi.jirasynchronizer.properties.SourceServer"
+    }
+  ]
+}
