@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class JiraAuthenticationImpl implements JiraAuthentication {
 
-    @Value("${<jira.destination.username>}")
+    @Value("${jira.destination.username}")
     private static String USERNAME;
 
-    @Value("${<jira.destination.password>}")
+    @Value("${jira.destination.password}")
     private static String PASSWORD;
 
     @Override

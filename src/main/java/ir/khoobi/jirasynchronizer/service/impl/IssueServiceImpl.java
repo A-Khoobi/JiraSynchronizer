@@ -41,9 +41,8 @@ public class IssueServiceImpl implements IssueService {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.writer().withoutAttribute("key");
         String jasonIssue = mapper.writeValueAsString(issue);
-        headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<String>(jasonIssue, headers);
-
+        headers.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<Issue> issueResponseEntity = restTemplate.exchange(requestUrl, HttpMethod.POST, request, Issue.class);
 
         return issueResponseEntity;
