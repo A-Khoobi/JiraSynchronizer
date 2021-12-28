@@ -8,7 +8,10 @@ import ir.khoobi.jirasynchronizer.service.IssueService;
 import ir.khoobi.jirasynchronizer.service.JiraAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,8 +46,11 @@ public class IssueServiceImpl implements IssueService {
         String jasonIssue = mapper.writeValueAsString(issue);
         HttpEntity<String> request = new HttpEntity<String>(jasonIssue, headers);
         headers.setContentType(MediaType.APPLICATION_JSON);
-        ResponseEntity<Issue> issueResponseEntity = restTemplate.exchange(requestUrl, HttpMethod.POST, request, Issue.class);
+//        ResponseEntity<Issue> issueResponseEntity = restTemplate.exchange(requestUrl, HttpMethod.POST, request, Issue.class);
 
-        return issueResponseEntity;
+        asdas
+
+
+        return restTemplate.postForEntity(requestUrl, issue, Issue.class, request);
     }
 }
