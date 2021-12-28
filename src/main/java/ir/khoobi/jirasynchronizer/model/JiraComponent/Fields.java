@@ -1,12 +1,15 @@
 package ir.khoobi.jirasynchronizer.model.JiraComponent;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import ir.khoobi.jirasynchronizer.base.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ir.khoobi.jirasynchronizer.model.issuefields.*;
 
 import java.util.List;
 
-public class Fields extends BaseEntity<Long> {
+
+@JsonIgnoreProperties(value = {"key"})
+public class Fields {
+
     private Project project;
 
     private IssueType issuetype;
@@ -24,6 +27,8 @@ public class Fields extends BaseEntity<Long> {
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<Component> components;
 
+    public Fields() {
+    }
 
     public String getKey() {
         return key;
@@ -31,10 +36,6 @@ public class Fields extends BaseEntity<Long> {
 
     public void setKey(String key) {
         this.key = key;
-    }
-
-    public Fields(Long id) {
-        super(id);
     }
 
     public Project getProject() {

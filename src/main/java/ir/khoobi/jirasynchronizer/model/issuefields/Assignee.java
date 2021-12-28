@@ -1,15 +1,8 @@
 package ir.khoobi.jirasynchronizer.model.issuefields;
 
-import ir.khoobi.jirasynchronizer.base.entity.BaseEntity;
-
-public class Assignee extends BaseEntity<Long> {
+public class Assignee {
 
     private String name;
-
-    public Assignee(Long id) {
-        super(id);
-    }
-
 
     public Assignee(String name) {
         this.name = name;
@@ -23,4 +16,7 @@ public class Assignee extends BaseEntity<Long> {
         this.name = name;
     }
 
+
+    public Assignee() {
+    }
 }

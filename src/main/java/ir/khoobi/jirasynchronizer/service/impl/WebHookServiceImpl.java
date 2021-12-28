@@ -3,12 +3,10 @@ package ir.khoobi.jirasynchronizer.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ir.khoobi.jirasynchronizer.base.service.BaseServiceImpl;
 import ir.khoobi.jirasynchronizer.model.JiraComponent.Issue;
 import ir.khoobi.jirasynchronizer.model.JiraComponent.WebHookObject;
 import ir.khoobi.jirasynchronizer.model.issuefields.IssueType;
 import ir.khoobi.jirasynchronizer.model.issuefields.Project;
-import ir.khoobi.jirasynchronizer.repository.WebHookRepository;
 import ir.khoobi.jirasynchronizer.service.IssueService;
 import ir.khoobi.jirasynchronizer.service.WebHookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,26 +19,25 @@ import java.util.Optional;
 
 
 @Service
-public class WebHookServiceImpl extends BaseServiceImpl<WebHookObject, Long, WebHookRepository> implements WebHookService {
+public class WebHookServiceImpl implements WebHookService {
     private final static String CREATE_ISSUE = "jira:issue_created";
     private final static String UPDATE_ISSUE = "jira:issue_updated";
     private final static String DELETE_ISSUE = "jira:issue_deleted";
 
-    public WebHookServiceImpl(WebHookRepository repository) {
-        super(repository);
-    }
 
     IssueService issueService;
 
     @Autowired
-    public WebHookServiceImpl(WebHookRepository repository, IssueService issueService) {
-        super(repository);
+    public WebHookServiceImpl(IssueService issueService) {
+
         this.issueService = issueService;
     }
 
     @Override
     public ResponseEntity<Optional<Issue>> webHookDispatcher(HttpEntity<String> request) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+
+
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String body = request.getBody();
         WebHookObject webHookObject = mapper.readValue(body, WebHookObject.class);
@@ -60,8 +57,8 @@ public class WebHookServiceImpl extends BaseServiceImpl<WebHookObject, Long, Web
         issue.getFields().getComponents().clear();
 //        issue.getFields().getComponents().add(new Component("11521"));
         issue.getFields().setSummary("test for jira connector final");
-        issue.getFields().setProject(new Project(10000L));
-        issue.getFields().setIssuetype(new IssueType(10003L));
+        issue.getFields().setProject(new Project("10000"));
+        issue.getFields().setIssuetype(new IssueType("10003"));
         issue.getFields().setDescription("created from synchronize");
         issueService.generalIssueCreator(issue);
 

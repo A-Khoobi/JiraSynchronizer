@@ -1,11 +1,23 @@
 package ir.khoobi.jirasynchronizer.model.issuefields;
 
-import ir.khoobi.jirasynchronizer.base.entity.BaseEntity;
+public class IssueType {
 
-public class IssueType extends BaseEntity<Long> {
+    private String id;
 
-
-    public IssueType(Long id) {
-        super(id);
+    public IssueType(String id) {
+        this.id = id;
     }
+
+    public IssueType() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 }

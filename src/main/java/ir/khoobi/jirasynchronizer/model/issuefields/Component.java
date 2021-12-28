@@ -1,14 +1,13 @@
 package ir.khoobi.jirasynchronizer.model.issuefields;
 
-import ir.khoobi.jirasynchronizer.base.entity.BaseEntity;
+public class Component {
 
-public class Component extends BaseEntity<Long> {
+    private Long id;
 
     public Component(Long id) {
-        super(id);
+        this.id = id;
     }
 
     public Component() {
-        super();
     }
 }

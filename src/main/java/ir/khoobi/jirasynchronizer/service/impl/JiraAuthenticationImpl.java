@@ -4,6 +4,7 @@ import ir.khoobi.jirasynchronizer.service.JiraAuthentication;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 
@@ -24,6 +25,7 @@ public class JiraAuthenticationImpl implements JiraAuthentication {
         String base64Credential = new String(base64CredentialBytes);
 
         HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Authorization", "Basic " + base64Credential);
         return headers;
     }

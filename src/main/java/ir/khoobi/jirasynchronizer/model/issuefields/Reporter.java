@@ -1,16 +1,9 @@
 package ir.khoobi.jirasynchronizer.model.issuefields;
 
-import ir.khoobi.jirasynchronizer.base.entity.BaseEntity;
-
-public class Reporter extends BaseEntity<Long> {
+public class Reporter {
 
 
     private String name;
-
-    public Reporter(Long id, String name) {
-        super(id);
-        this.name = name;
-    }
 
     public Reporter(String name) {
         this.name = name;
@@ -24,4 +17,7 @@ public class Reporter extends BaseEntity<Long> {
         this.name = name;
     }
 
+
+    public Reporter() {
+    }
 }

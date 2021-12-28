@@ -1,9 +1,6 @@
 package ir.khoobi.jirasynchronizer.model.JiraComponent;
 
-import ir.khoobi.jirasynchronizer.base.entity.BaseEntity;
-
-
-public class WebHookObject extends BaseEntity<Long> {
+public class WebHookObject {
 
     private String webhookEvent;
 
@@ -11,7 +8,6 @@ public class WebHookObject extends BaseEntity<Long> {
 
     public WebHookObject() {
     }
-
 
     public WebHookObject(Issue issue) {
         this.issue = issue;
